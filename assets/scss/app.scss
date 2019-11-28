@@ -1,0 +1,42 @@
+*{
+  margin: 0%;
+  padding: 0%;
+}
+
+body {
+  background-color: lightgrey;
+  font-family: Waree;
+  nav{
+    list-style-type: none;
+    background-color: lavender;
+    padding-bottom: 1%;
+
+    li{
+      color : gray;
+      font-size: 25px;
+      display: inline-flex;
+    }
+    .section{
+      display:flex;
+      justify-content: space-around;
+    }
+    input{
+      width: 190%;
+      border-radius: 15%;
+      font-size: 15px;
+      text-align: center;
+      font-weight: bold;
+      margin-left: 1450%;
+      background-color: thistle;
+    }
+      a{
+        text-decoration: none;
+      }
+    }
+    h1 {
+      text-transform: uppercase;
+      color: black;
+      text-align: center;
+      margin-top: 20%;
+    }
+}
