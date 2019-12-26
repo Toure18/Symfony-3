@@ -6,9 +6,13 @@ use App\Entity\Category;
 use App\Entity\Episode;
 use App\Entity\Program;
 use App\Entity\Season;
+use App\Form\CategoryType;
+use App\Form\ProgramSearchType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 Class WildController extends AbstractController
 {
@@ -16,9 +20,10 @@ Class WildController extends AbstractController
      * Show all rows from Program’s entity
      *
      * @Route("/", name="wild_index")
+     * @param Request $request
      * @return Response A response instance
      */
-    public function index(): Response
+    public function index(Request $request): Response
     {
         $programs = $this->getDoctrine()
             ->getRepository(Program::class)
@@ -29,11 +34,20 @@ Class WildController extends AbstractController
                 'No program found in program\'s table.'
             );
         }
+        $form = $this->createForm(ProgramSearchType::class);
+        $form->handleRequest($request);
+        if ($form->isSubmitted()) {
+            $data = $form->getData();
+        }
 
-        return $this->render(
-            'wild/index.html.twig',
-            ['programs' => $programs]
-        );
+            return $this->render(
+                'wild/index.html.twig',
+                [
+                    'programs' => $programs,
+                    'form' => $form->createView(),
+                ]
+            );
+
     }
 
     /**
@@ -88,9 +102,15 @@ Class WildController extends AbstractController
         $programs = $this->getDoctrine()
             ->getRepository(Program::class)
             ->findBy(['category' =>$category->getId()], ['id'=>'DESC'], 3);
+
+        $category = new Category();
+        $form = $this->createForm(CategoryType::class, $category);
+
         return $this->render('wild/category.html.twig', [
             'category'=>$category,
-            'programs'=>$programs]);
+            'programs'=>$programs,
+            'form' => $form->createView(),
+        ]);
 
     }
 
