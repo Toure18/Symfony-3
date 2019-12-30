@@ -23,6 +23,16 @@
                 <th>Poster</th>
                 <td>{{ program.poster }}</td>
             </tr>
+
+            <strong>Acteur :</strong>
+            <ul>
+                {% for actor in program.actors %}
+                    <li><a href="{{ path('actor_show', {'id': actor.id}) }}">{{ actor.name }} </li></a>
+                {% else %}
+                    <li>Aucun acteur pour cette série</li>
+                {% endfor %}
+            </ul>
+
         </tbody>
     </table>
 
