@@ -91,7 +91,7 @@ Class WildController extends AbstractController
 
     /**
      *
-     * @Route("/wild/category/{categoryName}", name="category")
+     * @Route("/wild/category/{categoryName}", name="category_index")
      * @return Response
      */
 
